@@ -35,7 +35,7 @@ final class GithubRestApiService extends ApiClient implements GithubService
     }
 
     /**
-     * @throws Exceptions\InvalidResponseException
+     * @throws Exceptions\RequestValidationException
      */
     public function createRepository(string $name): array
     {

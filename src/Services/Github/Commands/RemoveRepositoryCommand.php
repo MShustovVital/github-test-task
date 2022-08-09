@@ -4,6 +4,7 @@ namespace App\Services\Github\Commands;
 
 use App\Services\Github\Contracts\GithubService;
 use App\Services\Github\Exceptions\InvalidResponseException;
+use App\Services\Github\Exceptions\RequestValidationException;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;

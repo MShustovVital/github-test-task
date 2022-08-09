@@ -6,22 +6,23 @@ namespace App\Services\Github\Request;
 
 namespace App\Services\Github\Request;
 
+use App\Services\Github\Exceptions\RequestValidationException;
 use ReflectionClass;
 use ReflectionProperty;
 use Symfony\Component\HttpFoundation\Exception\JsonException;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Validator\ConstraintViolation;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 abstract class BaseRequest
 {
-    private Request $request;
     private ReflectionClass $reflection;
+    private Request $request;
 
-    public function __construct(private ValidatorInterface $validator)
+    public function __construct(private readonly ValidatorInterface $validator, RequestStack $requestStack)
     {
-        $this->request = Request::createFromGlobals();
+        $this->request = $requestStack->getCurrentRequest();
         $this->reflection = new ReflectionClass($this);
         $this->populate();
         if ($this->isAutoValidateRequest()) {
@@ -53,6 +54,9 @@ abstract class BaseRequest
         return $values;
     }
 
+    /**
+     * @throws RequestValidationException
+     */
     public function validate(): void
     {
         $errors = $this->validator->validate($this);
@@ -69,10 +73,7 @@ abstract class BaseRequest
         }
 
         if (count($messages['errors']) > 0) {
-            $response = new JsonResponse($messages, 422);
-            $response->send();
-
-            exit;
+            throw new RequestValidationException(json_encode($messages),422);
         }
     }
 
@@ -89,7 +90,7 @@ abstract class BaseRequest
 
     protected function isAutoValidateRequest(): bool
     {
-        return true;
+        return false;
     }
 
     protected function getRequestParams(): array

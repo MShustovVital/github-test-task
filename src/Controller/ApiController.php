@@ -9,7 +9,7 @@ abstract class ApiController extends AbstractController
 {
     public function sendResponse(array $data, int $code = 200): JsonResponse
     {
-        return $this->json(['status' => 'success', 'data' => $data], $code);
+        return $this->json($data, $code);
     }
 
     public function sendError(string $message = 'Not found', int $code = 404): JsonResponse

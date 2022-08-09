@@ -13,7 +13,6 @@ RUN apk update --update-cache && \
 RUN apk add git
 
 RUN apk add icu-dev
-RUN docker-php-ext-install mysqli pdo pdo_mysql
 RUN docker-php-ext-configure intl && docker-php-ext-install intl
 
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg && \

@@ -4,6 +4,7 @@ namespace App\Services\Github\Contracts;
 
 use App\Services\Github\Enums\HttpMethod;
 use App\Services\Github\Exceptions\InvalidResponseException;
+use App\Services\Github\Exceptions\RequestValidationException;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use Psr\Log\LoggerInterface;

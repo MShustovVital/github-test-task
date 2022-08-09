@@ -3,11 +3,12 @@
 namespace App\Controller;
 
 use App\Services\Github\Contracts\GithubService;
+use App\Services\Github\Exceptions\InvalidResponseException;
+use App\Services\Github\Exceptions\RequestValidationException;
 use App\Services\Github\Request\GithubRequest;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-final class GithubRepositoryController extends AbstractController
+final class GithubRepositoryController extends ApiController
 {
     public function __construct(private readonly GithubService $githubService)
     {
@@ -16,11 +17,16 @@ final class GithubRepositoryController extends AbstractController
 
     public function index(GithubRequest $request): JsonResponse
     {
-        $username = $request->validated()['username'];
-        $data = $this->githubService->listOfRepositories($username);
+        try {
+            $request->validate();
+            $username = $request->validated()['username'];
+            $data = $this->githubService->listOfRepositories($username);
+        }
+        catch (RequestValidationException|InvalidResponseException $e)
+        {
+            return $this->sendError($e->getMessage(),$e->getCode());
+        }
 
-        return $this->json([
-           $data
-        ]);
+        return $this->sendResponse($data);
     }
 }
