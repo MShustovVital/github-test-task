@@ -29,3 +29,7 @@ This is a repository containing GitHub API test task.
 ```sh
         $ docker-compose exec -it github_app composer test
 ```
++ If you want code format command run, run this instruction:
+```sh
+        $ composer format
+```
