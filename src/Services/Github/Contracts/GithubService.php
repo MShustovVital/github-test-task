@@ -8,5 +8,5 @@ interface GithubService
 
     public function removeRepository(string $name):mixed;
 
-    public function listOfRepositories():mixed;
+    public function listOfRepositories(string $username):mixed;
 }
