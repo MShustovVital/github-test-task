@@ -11,15 +11,15 @@ This is a repository containing GitHub API test task.
 ```
 + To start using the App run the following command:
 ```sh
-        $ docker exec github_app composer install
+        $ docker-compose exec app composer install
 ```
 + To run "create repository" CLI command run the following command:
 ```sh
-        $ docker exec -it github_app php bin/console app:create-repository {Name}
+        $ docker-compose exec app php bin/console app:create-repository {Name}
 ```
 + To run "delete repository" CLI command run the following command:
 ```sh
-        $ docker exec -it github_app php bin/console app:remove-repository {Name}
+        $ docker-compose exec app php bin/console app:remove-repository {Name}
 ```
 
 + To access repository endpoint navigate to http://localhost:8080/github/repository URL. Username set in .env.local will be used as standart.
@@ -27,7 +27,7 @@ This is a repository containing GitHub API test task.
 + If you want to see OpenApi follow this link: http://localhost:8080/api/docs
 + To run tests run the following command:
 ```sh
-        $ docker-compose exec -it github_app composer test
+        $ docker compose exec -it app composer test
 ```
 + If you want code format command run, run this instruction:
 ```sh
