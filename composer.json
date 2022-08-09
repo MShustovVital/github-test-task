@@ -21,7 +21,8 @@
         "symfony/browser-kit": "6.1.*",
         "symfony/css-selector": "6.1.*",
         "symfony/maker-bundle": "^1.45",
-        "symfony/phpunit-bridge": "^6.1"
+        "symfony/phpunit-bridge": "^6.1",
+        "friendsofphp/php-cs-fixer": "^3.5"
     },
     "config": {
         "allow-plugins": {
@@ -68,6 +69,10 @@
 
         "test": [
             "phpunit"
+        ],
+
+        "format": [
+            "vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php"
         ]
     },
     "conflict": {
