@@ -20,15 +20,15 @@ class GithubRepositoryControllerTest extends WebTestCase
 		$client = static::createClient();
 		$username = str_pad('', 90);
 		$client->request('GET', '/github/repository', ['username' => $username]);
-        $this->assertResponseStatusCodeSame(422);
+		$this->assertResponseStatusCodeSame(422);
 	}
 
-    /** @test */
-    public function it_validation_fails_when_username_less_than_two_symbols()
-    {
-        $client = static::createClient();
-        $username = str_pad('', 2);
-        $client->request('GET', '/github/repository', ['username' => $username]);
-        $this->assertResponseStatusCodeSame(422);
-    }
+	/** @test */
+	public function it_validation_fails_when_username_less_than_two_symbols()
+	{
+		$client = static::createClient();
+		$username = str_pad('', 2);
+		$client->request('GET', '/github/repository', ['username' => $username]);
+		$this->assertResponseStatusCodeSame(422);
+	}
 }
