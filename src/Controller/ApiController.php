@@ -12,8 +12,8 @@ abstract class ApiController extends AbstractController
         return $this->json($data, $code);
     }
 
-    public function sendError(string $message = 'Not found', int $code = 404): JsonResponse
+    public function sendError(string $message = 'Not found', int $code = 404, $errors = []): JsonResponse
     {
-        return $this->json(['status' => 'error', 'message' => $message], $code);
+        return $this->json(['status' => 'error', 'message' => $message,'errors'=>$errors], $code);
     }
 }
