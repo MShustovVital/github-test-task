@@ -8,7 +8,7 @@ services:
     working_dir: ${WORKING_DIR}
     volumes:
       - ./:${WORKING_DIR}
-    container_name: clubforce_app
+    container_name: github_app
 
   webserver:
     image: nginx:alpine
@@ -20,5 +20,5 @@ services:
       - ./docker/nginx/config/conf.d/:/etc/nginx/conf.d/
     links:
       - app
-    container_name: clubforce_webserver
+    container_name: github_webserver
 

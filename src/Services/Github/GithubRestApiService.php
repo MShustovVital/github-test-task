@@ -60,8 +60,12 @@ final class GithubRestApiService extends ApiClient implements GithubService
 	 * @throws Exceptions\InvalidResponseException
 	 */
 	#[ArrayShape(['username' => 'string', 'repositories' => 'array'])]
-	public function listOfRepositories(string $username): array
+	public function listOfRepositories(string $username = null): array
 	{
+		if (empty($username)) {
+			$username = $this->username;
+		}
+
 		$url = self::USERS_URL . "/$username/repos";
 		$response = $this->sendRequest($url, [], HttpMethod::GET);
 
