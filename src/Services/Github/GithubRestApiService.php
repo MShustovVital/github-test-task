@@ -4,7 +4,7 @@ namespace App\Services\Github;
 
 use App\Services\Github\Contracts\ApiClient;
 use App\Services\Github\Contracts\GithubService;
-use App\Services\Github\Enums\HttpMethod;
+use App\Services\Github\Enums\HttpMethods;
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
 use InvalidArgumentException;
@@ -43,7 +43,7 @@ final class GithubRestApiService extends ApiClient implements GithubService
 			'name' => $name,
 		];
 
-		return $this->sendRequest(self::CREATE_URL, $options, HttpMethod::POST);
+		return $this->sendRequest(self::CREATE_URL, $options, HttpMethods::POST);
 	}
 
 	/**
@@ -53,7 +53,7 @@ final class GithubRestApiService extends ApiClient implements GithubService
 	{
 		$url = self::DELETE_URL . "/$this->username/$name";
 
-		return $this->sendRequest($url, [], HttpMethod::DELETE);
+		return $this->sendRequest($url, [], HttpMethods::DELETE);
 	}
 
 	/**
@@ -67,7 +67,7 @@ final class GithubRestApiService extends ApiClient implements GithubService
 		}
 
 		$url = self::USERS_URL . "/$username/repos";
-		$response = $this->sendRequest($url, [], HttpMethod::GET);
+		$response = $this->sendRequest($url, [], HttpMethods::GET);
 
 		return [
 			'username' => $username,

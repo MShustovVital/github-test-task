@@ -10,6 +10,7 @@ use ReflectionProperty;
 use Symfony\Component\HttpFoundation\Exception\JsonException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\ConstraintViolation;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -18,6 +19,9 @@ abstract class BaseRequest
 	private ReflectionClass $reflection;
 	private Request $request;
 
+	/**
+	 * @throws RequestValidationException
+	 */
 	public function __construct(private readonly ValidatorInterface $validator, RequestStack $requestStack)
 	{
 		$this->request = $requestStack->getCurrentRequest();
@@ -70,8 +74,8 @@ abstract class BaseRequest
 			];
 		}
 
-		if (count($messages['errors']) > 0) {
-			throw new RequestValidationException(json_encode($messages), 422);
+		if (! empty($messages['errors'])) {
+			throw new RequestValidationException(json_encode($messages), Response::HTTP_UNPROCESSABLE_ENTITY);
 		}
 	}
 
@@ -97,7 +101,7 @@ abstract class BaseRequest
 		$queryParams = $request->query->all();
 		try {
 			$bodyParams = $request->toArray();
-		} catch (JsonException $e) {
+		} catch (JsonException) {
 			$bodyParams = [];
 		}
 

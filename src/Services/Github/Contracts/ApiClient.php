@@ -2,7 +2,7 @@
 
 namespace App\Services\Github\Contracts;
 
-use App\Services\Github\Enums\HttpMethod;
+use App\Services\Github\Enums\HttpMethods;
 use App\Services\Github\Exceptions\InvalidResponseException;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
@@ -19,7 +19,7 @@ abstract class ApiClient
 	/**
 	 * @throws InvalidResponseException
 	 */
-	protected function sendRequest(string $url, array $options, HttpMethod $method): array
+	protected function sendRequest(string $url, array $options, HttpMethods $method): array
 	{
 		try {
 			$options['headers'] = $this->getHeaders();

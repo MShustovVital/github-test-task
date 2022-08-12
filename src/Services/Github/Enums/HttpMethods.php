@@ -2,7 +2,7 @@
 
 namespace App\Services\Github\Enums;
 
-enum HttpMethod: string
+enum HttpMethods: string
 {
 	case GET = 'GET';
 	case POST = 'POST';
